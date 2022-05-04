@@ -1,3 +1,8 @@
+:root{
+    --animation-name: drive;
+    --carBorder-color: black;
+    --car-coords: jello;
+}
 
 body{
     background-color: gray;
@@ -8,9 +13,10 @@ body{
     height: 200px;
     border: 2px solid black;
     margin: auto;
-    margin-top: 30%;
+    margin-top: 30vh;
     position: relative;
     background-color: aqua;
+    overflow: hidden;
 }
 
 .prop{
@@ -18,11 +24,72 @@ body{
 }
 
 #car{
-    width: 50px;
-    height: 20px;
-    top: 130px;
-    z-index: 5;
+    width:50px;
+    height: 10px;
+    top: 132px;
+    animation-name: var(--animation-name);
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    z-index: 0;
+    border: 2px solid var(--carBorder-color);
 }
+
+#car:hover{
+    --carBorder-color: white;
+}
+.body:hover{
+    --carBorder-color: white;
+}
+
+.body{
+    width: 30px;
+    height: 10px;
+    position: relative;
+    top: -12px;
+    left: 7px;
+    border: 2px solid var(--carBorder-color);
+    border-bottom: none;
+    z-index: 0;
+}
+
+.front-wheels, .rear-wheels{
+    background-color: gray;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--carBorder-color);
+    top: 5px;
+    position: absolute;
+}
+
+.front-wheels{
+    left: 33px;
+}
+
+.rear-wheels{
+    left: 3px;
+}
+
+@keyframes drive{
+    from {
+        left: -100px;
+    }
+    to{
+        left: 200px;
+    }
+}
+
+@keyframes driveAway {
+    from {
+        left: 200px;
+    }
+
+    to {
+        left: 500px;
+    }
+}
+
+
 #station{
     background-color: blue;
     width: 50px;
