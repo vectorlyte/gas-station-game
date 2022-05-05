@@ -2,8 +2,10 @@ const gameWindow = document.getElementById("gameWindow");
 let root = document.documentElement;
 let atStation = false;
 let score = 0;
+let fueled = false;
 
-
+//Spawns car
+spawnCar();
 
 function spawnCar() {
     
@@ -21,10 +23,11 @@ function spawnCar() {
 
     // <====> Creates the car Object(div) <====>
     let car = `
-        <div id="car" class="prop"  style="background-color: ${color}" 
-        onclick="fuel()"
+        <div id="car" class="prop" 
+        onclick="serviceCar()"
             >
             <div class="body" style="background-color: ${color}"></div>
+            <div class="roof" style="background-color: ${color}"></div>
             <div class="front-wheels"></div>
             <div class="rear-wheels"></div>
             </div>`
@@ -36,26 +39,32 @@ function spawnCar() {
     const Arrived = document.querySelector('#car');
     Arrived.addEventListener("animationend", () => {
         atStation = true;
-        console.log(atStation);
     })
 }
 
-//Spawns car
-spawnCar();
-
-
-function fuel() {
-    if(atStation){
-    root.style.setProperty("--animation-name", "driveAway");
-    score += Math.floor(Math.random()*15 + 5);
-    updateScore();
-    const driveEnd = document.querySelector('#car');
-    driveEnd.addEventListener("animationend", () => {
+function serviceCar() {
+    if(fueled){
+        root.style.setProperty("--fueled-ani", "null");
+        root.style.setProperty("--animation-name", "driveAway");
+        score += Math.floor(Math.random()*15 + 5);
+        updateScore();
+        const driveEnd = document.querySelector('#car');
+        
+        driveEnd.addEventListener("animationend", () => {
         gameWindow.removeChild(document.getElementById("car"));
         root.style.setProperty("--animation-name", "drive");
-        spawnCar();
+        setTimeout(function(){
+            spawnCar();
+        }, Math.floor(Math.random()*10000));
         atStation = false;
+        fueled = false;
     })
+    }   else if(atStation){
+        setTimeout(function fuel(){
+            fueled = true;
+            console.log("fueled!");
+             root.style.setProperty("--fueled-ani", "fueled");
+        }, 4000);
 }
 }
 
@@ -64,5 +73,11 @@ function updateScore() {
     scoreEl.innerText = `$:${score}`;
 }
 
+function aim(){
+    
+}
+
 
 // const carX = document.getElementById("car").getBoundingClientRect();
+
+

@@ -1,6 +1,10 @@
 :root{
     --animation-name: drive;
+    --fueled-ani: null;
     --carBorder-color: black;
+    --animation-time: 1s;
+    --ani-count: infinite;
+    --rotateTo-mouse: 0deg;
 }
 
 *{
@@ -12,8 +16,8 @@ body{
 }
 
 .game-window{
-    width: 400px;
-    height: 200px;
+    width: 600px;
+    height: 300px;
     border: 2px solid black;
     margin: auto;
     margin-top: 30vh;
@@ -33,32 +37,41 @@ body{
 }
 
 #car{
-    width:50px;
-    height: 10px;
-    top: 132px;
+    top: 232px;
     animation-name: var(--animation-name);
     animation-duration: 3s;
     animation-fill-mode: forwards;
+}
+
+.body{
+    width:50px;
+    height: 10px;
     z-index: 0;
     border: 2px solid var(--carBorder-color);
+    animation-name: var(--fueled-ani);
+    animation-duration: var(--animation-time);
+    animation-iteration-count: var(--ani-count);
 }
 
 #car:hover{
     --carBorder-color: white;
 }
-.body:hover{
+.roof:hover{
     --carBorder-color: white;
 }
 
-.body{
+.roof{
     width: 30px;
     height: 10px;
     position: relative;
-    top: -12px;
+    top: -24px;
     left: 7px;
     border: 2px solid var(--carBorder-color);
     border-bottom: none;
     z-index: 0;
+    animation-name: var(--fueled-ani);
+    animation-duration: var(--animation-time);
+    animation-iteration-count: var(--ani-count);
 }
 
 .front-wheels, .rear-wheels{
@@ -69,14 +82,23 @@ body{
     border: 2px solid var(--carBorder-color);
     top: 5px;
     position: absolute;
+    animation-name: var(--fueled-ani);
+    animation-duration: var(--animation-time);
+    animation-iteration-count: var(--ani-count);
 }
 
 .front-wheels{
-    left: 33px;
+    left: 36px;
 }
 
 .rear-wheels{
     left: 3px;
+}
+
+@keyframes fueled{
+    0% {border-color: black;}
+    50%{border-color:rgb(247, 254, 64)}
+    100% {border-color: black;}
 }
 
 @keyframes drive{
@@ -94,7 +116,7 @@ body{
     }
 
     to {
-        left: 500px;
+        left: 800px;
     }
 }
 
@@ -103,11 +125,21 @@ body{
     background-color: blue;
     width: 50px;
     height: 50px;
-    top: 100px;
-    right: 30%;
+    top: 200px;
+    left: 30%;
 }
+#weapon{
+    width: 100px;
+    height: 5px;
+    background-color: yellow;
+    position: relative;
+    top: 20px;
+    transform: rotate(var(--rotateTo-mouse));
+    display: none;
+}
+
 #ground{
-    top: 150px;
+    top: 250px;
     border-top: 2px solid rgb(0, 135, 43);
     background: linear-gradient(rgb(62, 254, 72), rgb(1, 99, 16));;
     width: 100%;
